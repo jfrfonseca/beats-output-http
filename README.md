@@ -1,43 +1,12 @@
-beats-output-http
-=================
+html-filebeat-aggregator-visualizer
+===================================
 
-Outputter for the Elastic Beats platform that simply
-POSTs events to an HTTP endpoint.
+[FileBeat] is a simple file-monitoring tool. It allows for someone to see every change incurred to a file from distance, and aggregate the changes of multiple files using [LogStash], or even [Redis].
 
-[![Build Status](https://travis-ci.org/raboof/beats-output-http.svg?branch=master)](https://travis-ci.org/raboof/beats-output-http)
+It is cool and all, but fowarding file changes to Redis or LogStash requires quite a lot of hardwork and infrastructure. Its overkill for regular development needs of log aggregation and visualization.
 
-Usage
-=====
+This *HTML FileBeat Logs Aggregator & Visualizer* is a simple web interface for FileBeat logs. Messages sent by multiple FileBeat instances are received by a simple Python [Flask] server that serves HTML pages. Just. Like. That.
 
-To add support for this output plugin to a beat, you
-have to import this plugin into your main beats package,
-like this:
+Those HTML pages have some bells and whistles too, like [RegEx] filters, highlighting and counters and charts. But that is still a dream.
 
-```
-package main
-
-import (
-	"os"
-
-	_ "github.com/raboof/beats-output-http"
-
-	"github.com/elastic/beats/libbeat/beat"
-	"github.com/raboof/connbeat/beater"
-)
-
-var Name = "connbeat"
-
-func main() {
-	if err := beat.Run(Name, "", beater.New); err != nil {
-		os.Exit(1)
-	}
-}
-```
-
-Then configure the http output plugin in yourbeat.yaml:
-
-```
-output:
-  http:
-    hosts: ["some.example.com:80/foo"]
-```
+EARLY DEVELOPMENT STAGE
